@@ -2,6 +2,11 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-06 — Repositorio enlazado y criterio para versionar scripts
+- Se inicializa Git en la carpeta del proyecto y se enlaza con `Win-4-Win/Win4Win` (rama `main`).
+- Decisión 16: del directorio `script/` solo se versionan los `.ps1` y `.bat`; `copia_config/` (datos personales) y los binarios quedan excluidos con `.gitignore`. Los scripts siguen en el repositorio y la BBDD, si llega a haberla, solo guardaría metadatos (decisión 4).
+- Se retira de [AGENTS.md](../AGENTS.md) la mención a un activador concreto; la regla de no incluir activadores no cambia.
+
 ## 2026-11-04 — Organización Win-4-Win creada
 - Se confirma que la organización de GitHub **Win-4-Win** ya está creada; se elimina esa tarea pendiente de la decisión 14.
 - Actualizados [DECISIONES.md](DECISIONES.md), [NOMBRES.md](NOMBRES.md) y [AGENTS.md](../AGENTS.md). La entrada anterior refleja el estado que había en ese momento.

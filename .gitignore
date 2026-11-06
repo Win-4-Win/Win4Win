@@ -148,5 +148,7 @@ vite.config.ts.timestamp-*
 # Turbo Repo
 .turbo
 
-# Prototipo de scripts (contiene datos personales y binarios)
-/script/
+# Prototipo de scripts: solo código (.ps1/.bat); se excluyen datos personales y binarios
+/script/*
+!/script/*.ps1
+!/script/*.bat

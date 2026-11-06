@@ -16,4 +16,5 @@
 | 13 | Gestor de proyectos | Abierta (pendiente) | Opciones: Trello, GitHub Projects. Recomendación: GitHub Projects (integrado con issues y PR, gratis, un solo sitio). |
 | 14 | Organización en GitHub | Cerrada | Organización **Win-4-Win**, creada para centralizar repositorios, Projects y permisos del equipo. |
 | 15 | Versionado y alcance de la v0.1.0 | Cerrada | SemVer en `0.x`; v0.1.0 = web estática + descargable `.ps1`/`.bat` que instala el catálogo sobre Windows 11 ya instalado (sin Rufus/ISO). Ver [VERSIONES.md](VERSIONES.md). |
+| 16 | Qué se versiona de `script/` | Cerrada | Se suben al repositorio solo los `.ps1` y `.bat` (código revisable). Quedan fuera, vía `.gitignore`, `copia_config/` (datos personales) y binarios como `dnie.exe` (se descargarán de la fuente oficial con comprobación de hash). Complementa la decisión 4. |
 | 8 | Entregables del curso | Abierta | Seguro: memoria, documentación y defensa. Producción real. Confirmar requisitos. |
