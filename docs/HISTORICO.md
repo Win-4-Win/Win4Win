@@ -2,6 +2,11 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-08 — Propuesta de planificación por sprints
+- Se fija una duración de dos semanas por sprint y una capacidad orientativa de 3 h por persona y semana; la fecha de entrega sigue sin confirmar (decisión 5).
+- Se confirma el uso de GitHub Projects con un tablero kanban (decisión 13).
+- Se prepara un [borrador del primer sprint y hoja de ruta](sprints/sprint-01.md), pendiente de revisión; Hyper-V se propone para pruebas sin dar aún por cerrado el entorno ni el stack web.
+
 ## 2026-11-06 — Repositorio enlazado y criterio para versionar scripts
 - Se inicializa Git en la carpeta del proyecto y se enlaza con `Win-4-Win/Win4Win` (rama `main`).
 - Decisión 16: del directorio `script/` solo se versionan los `.ps1` y `.bat`; `copia_config/` (datos personales) y los binarios quedan excluidos con `.gitignore`. Los scripts siguen en el repositorio y la BBDD, si llega a haberla, solo guardaría metadatos (decisión 4).
