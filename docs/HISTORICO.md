@@ -2,6 +2,10 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-10 — Organización de decisiones por estado
+- Se separan en [DECISIONES.md](DECISIONES.md) las decisiones cerradas de las abiertas o propuestas para facilitar su consulta.
+- Se conservan los números, estados y detalles de cada decisión.
+
 ## 2026-11-10 — Cambio de hypervisor: Hyper-V → VirtualBox
 - Se confirma que el equipo tiene experiencia previa con Oracle VirtualBox y lo prefiere.
 - Decisión 17: cambio a VirtualBox para pruebas (mejor compatibilidad si alguien usa Windows Home, sin conflictos con Docker/WSL2).
