@@ -2,10 +2,27 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-10 — Criterios de colaboración con IA
+- Se especifica que las explicaciones y propuestas deben adaptarse al contexto de un proyecto de FP realizado por estudiantes: en español por defecto, breves y claras.
+- Se indica preguntar antes de crear si hay dudas o una mejora sencilla que pueda afectar al resultado.
+
+## 2026-11-10 — Permiso previo para operaciones de Git
+- Se establece en [AGENTS.md](../AGENTS.md) que toda operación de Git que modifique el repositorio, índice, historial o remoto requiere permiso explícito previo del usuario.
+- Las consultas de solo lectura, como `status`, `diff` y `log`, siguen permitidas.
+
+## 2026-11-10 — Convenciones de programación front-end
+- Se añaden instrucciones compartidas para HTML, CSS y JavaScript: accesibilidad como prioridad en HTML, identificadores en inglés y concisos, y comentarios aclaratorios en español.
+- Referenciadas desde [AGENTS.md](../AGENTS.md); se aplican al editar archivos front-end mediante `.github/instructions/frontend.instructions.md`.
+
+## 2026-11-10 — Organización de decisiones por estado
+- Se separan en [DECISIONES.md](DECISIONES.md) las decisiones cerradas de las abiertas o propuestas para facilitar su consulta.
+- Se conservan los números, estados y detalles de cada decisión.
+
 ## 2026-11-10 — Cambio de hypervisor: Hyper-V → VirtualBox
 - Se confirma que el equipo tiene experiencia previa con Oracle VirtualBox y lo prefiere.
 - Decisión 17: cambio a VirtualBox para pruebas (mejor compatibilidad si alguien usa Windows Home, sin conflictos con Docker/WSL2).
 - Actualizado: [DECISIONES.md](DECISIONES.md) y [sprint-01.md](sprints/sprint-01.md).
+- Se sustituyen en el punto 3 y la propuesta técnica del sprint las referencias residuales a Hyper-V por Oracle VirtualBox y sus snapshots.
 
 ## 2026-11-08 — Propuesta de planificación por sprints
 - Se fija una duración de dos semanas por sprint y una capacidad orientativa de 3 h por persona y semana; la fecha de entrega sigue sin confirmar (decisión 5).
