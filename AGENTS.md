@@ -54,9 +54,12 @@ Las fases se reparten en sprints; el contenido de cada sprint se decide en su pl
 ## 6. Convenciones
 
 - **Preguntar si hace falta:** ante dudas, requisitos ambiguos o decisiones que afecten al diseño, el agente debe preguntar al usuario antes de asumir.
+- **Colaboración con IA:** este es un proyecto de FP desarrollado por estudiantes. Explica y propone soluciones con un nivel adecuado para el equipo, en español por defecto, de forma breve y clara; define los términos técnicos necesarios sin dar por hecho experiencia profesional. Antes de empezar a crear, pregunta si hay dudas o si detectas una mejora sencilla que pueda cambiar el alcance o el resultado; no interrumpas con preguntas cuando la petición ya sea clara y no haya una mejora relevante que decidir.
 - **Skills del proyecto** (en `.github/skills/`): `registrar-hito`, `script-powershell-instalador`, `anadir-programa-catalogo`, `planificar-sprint`. Úsalas cuando apliquen.
+- **Operaciones de Git:** antes de ejecutar cualquier operación que cambie el repositorio, el índice, el historial o el remoto, pide permiso explícito al usuario. Esto incluye `git add`, `commit`, `push`, `pull`, `merge`, `rebase`, cambiar de rama, `cherry-pick`, `stash` y operaciones equivalentes. Una petición de editar o implementar cambios no autoriza estas operaciones. Las consultas de solo lectura, como `status`, `diff` y `log`, sí están permitidas.
 
 - Idioma: documentación y comentarios en español; identificadores de código en inglés.
+- Para cambios en HTML, CSS o JavaScript, aplicar también las [buenas prácticas de front-end](.github/instructions/frontend.instructions.md), especialmente las de accesibilidad.
 - Cambios pequeños y justificados; no introducir dependencias sin anotarlo en DECISIONES.
 - Seguridad: los scripts ejecutan acciones con privilegios de administrador. Deben ser **idempotentes**, registrar logs, no contener secretos, descargar software solo de fuentes oficiales (preferir `winget`) y verificar integridad cuando sea posible.
 - **Licencias:** el proyecto no incluye ni documenta activadores ni cracks. Solo software con licencia legítima, gratuito u open source.
