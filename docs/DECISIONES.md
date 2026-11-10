@@ -7,6 +7,7 @@
 | 3 | Stack web | Cerrada (v1) | Solo front: HTML, CSS y JS vanilla, sin backend ni BBDD en la v1. Framework (React, Astro, Angular) y backend se reevaluarán después. |
 | 4 | Almacén de scripts y BBDD | Propuesta (aplazada) | Para la v1 no hay BBDD: el catálogo y los scripts son ficheros estáticos versionados en Git (p. ej. un `catalogo.json`). Propuesta para después: MongoDB Atlas M0 solo para metadatos del catálogo. Ver histórico. |
 | 5 | Duración de sprint y fecha de lanzamiento | Parcialmente cerrada | Sprints de 2 semanas; capacidad orientativa de 3 h por persona y semana. Fecha por confirmar; abril es una referencia aproximada. |
+| 17 | Hypervisor para pruebas | Cerrada | **Oracle VirtualBox**. El equipo tiene experiencia previa con VirtualBox; ofrece mejor compatibilidad si alguien usa Windows Home y no interfiere con otras herramientas (Docker, WSL2). |
 | 6 | Nombre del proyecto | Cerrada | **Win4Win**. Pendiente de comprobar disponibilidad de dominio y marca. Ver [NOMBRES.md](NOMBRES.md). |
 | 7 | Alcance "instalar Windows" | Cerrada (por fases) | Base: Windows + suite básica. Final: usuario elige solo programas, o Windows + programas. |
 | 9 | Flujo Git | Cerrada | GitHub, ramas por funcionalidad, Pull Requests con revisión y tests. Detalle (nombres de ramas, CI) por definir. |

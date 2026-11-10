@@ -35,9 +35,9 @@ Criterios de aceptación:
 **Como integrante del equipo**, quiero restaurar un Windows de pruebas para repetir instalaciones sin afectar al equipo anfitrión.
 
 Criterios de aceptación:
-- Comprobar RAM, espacio, virtualización y disponibilidad de Hyper-V; anotar versión del anfitrión y de Windows invitado.
-- Instalar Windows 11 en una VM de generación 2 con arranque seguro y TPM virtual, con medio oficial y licencia o evaluación válidos.
-- Comprobar conexión, inicio de sesión y funcionamiento de `winget`; guardar un checkpoint base y verificar que se puede restaurar.
+- Comprobar RAM, espacio, virtualización y disponibilidad de VirtualBox; anotar versión del anfitrión y de Windows invitado.
+- Instalar Windows 11 en una VM con snapshot base, con medio oficial y licencia o evaluación válidos.
+- Comprobar conexión, inicio de sesión y funcionamiento de `winget`; guardar un snapshot base y verificar que se puede restaurar.
 - Documentar configuración, requisitos y recuperación; sin datos personales ni binarios en Git. No usar la VM para credenciales reales.
 
 ### 4. Revisar el prototipo del script y definir pruebas — 4 h

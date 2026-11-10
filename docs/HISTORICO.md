@@ -2,6 +2,11 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-10 — Cambio de hypervisor: Hyper-V → VirtualBox
+- Se confirma que el equipo tiene experiencia previa con Oracle VirtualBox y lo prefiere.
+- Decisión 17: cambio a VirtualBox para pruebas (mejor compatibilidad si alguien usa Windows Home, sin conflictos con Docker/WSL2).
+- Actualizado: [DECISIONES.md](DECISIONES.md) y [sprint-01.md](sprints/sprint-01.md).
+
 ## 2026-11-08 — Propuesta de planificación por sprints
 - Se fija una duración de dos semanas por sprint y una capacidad orientativa de 3 h por persona y semana; la fecha de entrega sigue sin confirmar (decisión 5).
 - Se confirma el uso de GitHub Projects con un tablero kanban (decisión 13).
