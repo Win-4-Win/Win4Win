@@ -6,6 +6,7 @@ Bitácora de hitos y decisiones. Entradas nuevas arriba.
 - Se confirma que el equipo tiene experiencia previa con Oracle VirtualBox y lo prefiere.
 - Decisión 17: cambio a VirtualBox para pruebas (mejor compatibilidad si alguien usa Windows Home, sin conflictos con Docker/WSL2).
 - Actualizado: [DECISIONES.md](DECISIONES.md) y [sprint-01.md](sprints/sprint-01.md).
+- Se sustituyen en el punto 3 y la propuesta técnica del sprint las referencias residuales a Hyper-V por Oracle VirtualBox y sus snapshots.
 
 ## 2026-11-08 — Propuesta de planificación por sprints
 - Se fija una duración de dos semanas por sprint y una capacidad orientativa de 3 h por persona y semana; la fecha de entrega sigue sin confirmar (decisión 5).
