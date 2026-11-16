@@ -33,6 +33,7 @@ Los scripts de instalación pueden ejecutar acciones con privilegios de administ
 - [`docs/CATALOGO.md`](docs/CATALOGO.md): programas previstos y estado de verificación.
 - [`docs/SCRIPTS.md`](docs/SCRIPTS.md): descripción y estado del prototipo documentado.
 - [`docs/VERSIONES.md`](docs/VERSIONES.md): versionado y hoja de ruta.
+- [`docs/GIT.md`](docs/GIT.md): flujo de trabajo con Git (ramas, commits y Pull Requests).
 - [`docs/NOMBRES.md`](docs/NOMBRES.md): nombre elegido y propuestas consideradas.
 
 ## Estado de entrega
