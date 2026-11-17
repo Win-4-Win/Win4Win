@@ -2,6 +2,11 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-16 — Flujo de trabajo con Git documentado
+- Se crea [GIT.md](GIT.md): ramas `main` (protegida, solo PR) y `dev` (integración sin push directo), flujo `feat/… → dev → main`, prefijos de rama, stage/commit/push, Pull Requests, borrado de ramas y buenas prácticas.
+- Convención de commits: atómicos, en inglés, formato Conventional Commits (`tipo(alcance): descripción`).
+- Decisión 9 actualizada con el detalle del flujo; referencias añadidas en [AGENTS.md](../AGENTS.md) y [README.md](../README.md).
+
 ## 2026-11-10 — Criterios de colaboración con IA
 - Se especifica que las explicaciones y propuestas deben adaptarse al contexto de un proyecto de FP realizado por estudiantes: en español por defecto, breves y claras.
 - Se indica preguntar antes de crear si hay dudas o una mejora sencilla que pueda afectar al resultado.
