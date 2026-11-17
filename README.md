@@ -32,6 +32,7 @@ Los scripts de instalación pueden ejecutar acciones con privilegios de administ
 - [`docs/HISTORICO.md`](docs/HISTORICO.md): registro cronológico de cambios y decisiones.
 - [`docs/CATALOGO.md`](docs/CATALOGO.md): programas previstos y estado de verificación.
 - [`docs/SCRIPTS.md`](docs/SCRIPTS.md): descripción y estado del prototipo documentado.
+- [`docs/VERSIONADO-SCRIPTS.md`](docs/VERSIONADO-SCRIPTS.md): características y evolución de las versiones del instalador.
 - [`docs/VERSIONES.md`](docs/VERSIONES.md): versionado y hoja de ruta.
 - [`docs/NOMBRES.md`](docs/NOMBRES.md): nombre elegido y propuestas consideradas.
 

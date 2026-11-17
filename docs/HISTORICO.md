@@ -2,6 +2,15 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-17 — Registro de la primera versión del script
+- Se crea [VERSIONADO-SCRIPTS.md](VERSIONADO-SCRIPTS.md) para registrar las
+  características del instalador siguiendo SemVer.
+- Se documenta `v0.1.0` a partir de los archivos actuales de
+  [`scripts/`](../scripts): instalación con `winget`, descargas auxiliares,
+  configuración de navegadores, personalización opcional y modo silencioso.
+- Se enlaza el nuevo documento desde [SCRIPTS.md](SCRIPTS.md) y
+  [README.md](../README.md).
+
 ## 2026-11-10 — Criterios de colaboración con IA
 - Se especifica que las explicaciones y propuestas deben adaptarse al contexto de un proyecto de FP realizado por estudiantes: en español por defecto, breves y claras.
 - Se indica preguntar antes de crear si hay dudas o una mejora sencilla que pueda afectar al resultado.

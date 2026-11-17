@@ -2,6 +2,9 @@
 
 Carpeta: [`script/`](../script). Prototipo funcional en PowerShell con envoltorios `.bat`.
 
+El historial de versiones y las características de cada entrega se mantienen
+en [VERSIONADO-SCRIPTS.md](VERSIONADO-SCRIPTS.md).
+
 ## Archivos
 
 | Archivo | Función |
