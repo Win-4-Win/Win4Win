@@ -2,6 +2,16 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-17 — Web estática con estética retro terminal
+
+- Se crea la carpeta `src/` con la primera versión de la web estática: `index.html`, `styles.css` y `app.js`.
+- Diseño retro de terminal: fondo oscuro, texto verde, fuente monoespaciada, efecto scanline CRT y cursor parpadeante.
+- Secciones: hero, última versión del script con instrucciones y descargas, quiénes somos con tarjetas del equipo, y preguntas frecuentes (10 preguntas).
+- Navegación single-page con modales para los perfiles de Edu, Raúl y José (descripción, CV, GitHub y LinkedIn como placeholders).
+- Responsive con prioridad a escritorio; menú hamburguesa en móvil.
+- Accesibilidad: skip link, ARIA en modales y acordeón, trap focus, `prefers-reduced-motion`, alto contraste y navegación por teclado.
+- Los enlaces de descarga apuntan a los scripts reales en `scripts/`.
+
 ## 2026-11-16 — Flujo de trabajo con Git documentado
 - Se crea [GIT.md](GIT.md): ramas `main` (protegida, solo PR) y `dev` (integración sin push directo), flujo `feat/… → dev → main`, prefijos de rama, stage/commit/push, Pull Requests, borrado de ramas y buenas prácticas.
 - Convención de commits: atómicos, en inglés, formato Conventional Commits (`tipo(alcance): descripción`).
