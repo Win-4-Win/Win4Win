@@ -48,6 +48,7 @@ La web estática se encuentra en [`src/`](src/). Para visualizarla, abre `src/in
 - [`docs/HISTORICO.md`](docs/HISTORICO.md): registro cronológico de cambios y decisiones.
 - [`docs/CATALOGO.md`](docs/CATALOGO.md): programas previstos y estado de verificación.
 - [`docs/SCRIPTS.md`](docs/SCRIPTS.md): descripción y estado del prototipo documentado.
+- [`docs/VERSIONADO-SCRIPTS.md`](docs/VERSIONADO-SCRIPTS.md): características y evolución de las versiones del instalador.
 - [`docs/VERSIONES.md`](docs/VERSIONES.md): versionado y hoja de ruta.
 - [`docs/GIT.md`](docs/GIT.md): flujo de trabajo con Git (ramas, commits y Pull Requests).
 - [`docs/NOMBRES.md`](docs/NOMBRES.md): nombre elegido y propuestas consideradas.

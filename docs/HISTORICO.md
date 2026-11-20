@@ -12,6 +12,16 @@ Bitácora de hitos y decisiones. Entradas nuevas arriba.
 - Accesibilidad: skip link, ARIA en modales y acordeón, trap focus, `prefers-reduced-motion`, alto contraste y navegación por teclado.
 - Los enlaces de descarga apuntan a los scripts reales en `scripts/`.
 
+## 2026-11-17 — Registro de la primera versión del script
+
+- Se crea [VERSIONADO-SCRIPTS.md](VERSIONADO-SCRIPTS.md) para registrar las
+  características del instalador siguiendo SemVer.
+- Se documenta `v0.1.0` a partir de los archivos actuales de
+  [`scripts/`](../scripts): instalación con `winget`, descargas auxiliares,
+  configuración de navegadores, personalización opcional y modo silencioso.
+- Se enlaza el nuevo documento desde [SCRIPTS.md](SCRIPTS.md) y
+  [README.md](../README.md).
+
 ## 2026-11-16 — Flujo de trabajo con Git documentado
 - Se crea [GIT.md](GIT.md): ramas `main` (protegida, solo PR) y `dev` (integración sin push directo), flujo `feat/… → dev → main`, prefijos de rama, stage/commit/push, Pull Requests, borrado de ramas y buenas prácticas.
 - Convención de commits: atómicos, en inglés, formato Conventional Commits (`tipo(alcance): descripción`).
