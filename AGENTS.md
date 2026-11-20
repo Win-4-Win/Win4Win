@@ -79,4 +79,4 @@ Las fases se reparten en sprints; el contenido de cada sprint se decide en su pl
    ├─ SCRIPTS.md
    └─ NOMBRES.md
 ```
-(Se ampliará con `web/`, `scripts/`, etc. cuando se decida el stack.)
+(Se ampliará con `src/`, `scripts/`, etc. cuando se decida el stack.)
