@@ -11,7 +11,7 @@ Las decisiones se agrupan por su estado general. Los números se mantienen como 
 | 3 | Stack web | Cerrada (v1) | Solo front: HTML, CSS y JS vanilla, sin backend ni BBDD en la v1. Framework (React, Astro, Angular) y backend se reevaluarán después. |
 | 6 | Nombre del proyecto | Cerrada | **Win4Win**. Pendiente de comprobar disponibilidad de dominio y marca. Ver [NOMBRES.md](NOMBRES.md). |
 | 7 | Alcance "instalar Windows" | Cerrada (por fases) | Base: Windows + suite básica. Final: usuario elige solo programas, o Windows + programas. |
-| 9 | Flujo Git | Cerrada | GitHub, ramas por funcionalidad, Pull Requests con revisión y tests. Detalle (nombres de ramas, CI) por definir. |
+| 9 | Flujo Git | Cerrada | GitHub, ramas por funcionalidad y Pull Requests con revisión y tests. Flujo `feat/… → dev → main`: `main` protegida (solo PR), `dev` sin push directo, prefijos `feat/`, `fix/`, `doc/`, `chore/`, `refactor/`, `test/` y `perf/`. Detalle en [GIT.md](GIT.md). CI por definir. |
 | 11 | Suite básica de programas | Cerrada (v1) | Ver [CATALOGO.md](CATALOGO.md). |
 | 12 | Licencias de Windows/Office | Cerrada | Windows 11 sin activar (o Enterprise Evaluation en VM para demos) y LibreOffice en lugar de Office. Sin activadores de terceros. |
 | 13 | Gestor de proyectos | Cerrada | GitHub Projects, con tablero tipo kanban. |

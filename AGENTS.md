@@ -38,7 +38,7 @@ Las fases se reparten en sprints; el contenido de cada sprint se decide en su pl
 - **Agile/Scrum por sprints.** Aún sin fecha de lanzamiento ni duración de sprint definidas (registrar la decisión en el histórico cuando se tome).
 - Toda decisión de diseño, hito o cambio relevante se documenta **en el momento**, para poder redactar la memoria final.
 
-- **Git/GitHub:** trabajo con ramas y Pull Requests, con tests. Nunca commitear directamente a `main`.
+- **Git/GitHub:** trabajo con ramas y Pull Requests, con tests. Nunca commitear directamente a `main` ni a `dev`. Flujo, nombres de ramas y convención de commits en [docs/GIT.md](docs/GIT.md).
 - **Presupuesto limitado:** preferir soluciones gratuitas o de bajo coste.
 
 ## 5. Reglas de documentación (obligatorias para agentes)
@@ -47,6 +47,7 @@ Las fases se reparten en sprints; el contenido de cada sprint se decide en su pl
 - [docs/DECISIONES.md](docs/DECISIONES.md): decisiones abiertas y cerradas (formato de script, stack, BBDD…). Al cerrar una, actualizar su estado y referenciarla en el histórico.
 - [docs/NOMBRES.md](docs/NOMBRES.md): propuestas de nombre del proyecto.
 - [docs/CATALOGO.md](docs/CATALOGO.md): programas del catálogo. [docs/SCRIPTS.md](docs/SCRIPTS.md): descripción y estado de los scripts; actualizar al cambiarlos.
+- [docs/GIT.md](docs/GIT.md): flujo de trabajo con Git (ramas, commits, Pull Requests). Actualizar si cambia el flujo.
 - No subir datos personales ni binarios al repositorio (ver deuda técnica en SCRIPTS.md).
 - No borrar historial; si algo cambia, añadir una nueva entrada que lo explique.
 - Documentación en **español**.
@@ -78,4 +79,4 @@ Las fases se reparten en sprints; el contenido de cada sprint se decide en su pl
    ├─ SCRIPTS.md
    └─ NOMBRES.md
 ```
-(Se ampliará con `web/`, `scripts/`, etc. cuando se decida el stack.)
+(Se ampliará con `src/`, `scripts/`, etc. cuando se decida el stack.)
