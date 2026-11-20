@@ -2,8 +2,6 @@
    Win4Win — JavaScript
    ============================================================ */
 
-'use strict';
-
 /* ---------- Datos de los miembros del equipo ---------- */
 
 const teamMembers = {
