@@ -1,0 +1,24 @@
+﻿win4win
+Windows 10 y 11 de 64 bits
+
+1. Extrae el ZIP completo en una carpeta.
+2. Abre win4win.bat y acepta el aviso de administrador con tu cuenta.
+3. Pulsa Iniciar instalación.
+
+La ventana muestra el estado general. Abrir registros abre la carpeta de
+la última ejecución iniciada desde esa ventana. Los registros de todas
+las ejecuciones se guardan en %LOCALAPPDATA%\win4win\Registros.
+Cada ejecución incluye un informe CSV y un registro de PowerShell.
+Desde la interfaz se guardan también la salida y los errores del motor.
+
+Para comprobar las descargas desde CMD, sin instalar aplicaciones:
+    win4win_consola.bat -VerificarDescargas
+
+Se necesita acceso a Internet y una versión reciente de App Installer
+(WinGet). La comprobación prueba los paquetes WinGet, el MSI de respaldo
+de Chrome, DNIe, aTube Catcher y los archivos de ambas extensiones.
+Los instaladores directos deben tener una firma Authenticode válida.
+
+Las opciones de consola -LimpiarEscritorio y -StartLimpio se conservan.
+La restauración utiliza copia_config cuando existe en la carpeta del
+proyecto y conserva los elementos de escritorio que ya existen.

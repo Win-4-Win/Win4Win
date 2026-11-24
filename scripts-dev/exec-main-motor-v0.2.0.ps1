@@ -1,38 +1,40 @@
-#requires -Version 5.1
+﻿#requires -Version 5.1
 <#
- Instalador Windows 10/11 v2.0
- Uso: .\instalar_todo.ps1 [-Silencioso] [-LimpiarEscritorio] [-StartLimpio]
+ win4win para Windows 10/11
+ Uso: .\win4win_motor.ps1 [-Silencioso] [-LimpiarEscritorio] [-StartLimpio]
  IMPORTANTE: ejecutar en la sesion del usuario final (no SYSTEM).
  Los EXE externos solo se ejecutan si tienen firma Authenticode valida.
 #>
 [CmdletBinding()]
-param([switch]$Silencioso, [switch]$LimpiarEscritorio, [switch]$StartLimpio)
+param([switch]$Silencioso, [switch]$LimpiarEscritorio, [switch]$StartLimpio, [string]$RunDir, [switch]$VerificarDescargas)
 $ErrorActionPreference = 'Stop'
 $PaginaInicio = 'https://www.google.com/'
 $ExtensionChrome = 'ddkjiahejlhfcafbddmgiahcphecmpfh'
 $ExtensionFirefox = 'https://addons.mozilla.org/firefox/downloads/latest/video-downloadhelper/latest.xpi'
-$UrlATube = 'https://opera.dsnetwb.com/files/aTube-Catcher-Setup-26.8.20-x64.exe'
+$UrlATube = 'https://opera.dsnetwb.com/files/aTube-Catcher-Setup-26.11.20-x64.exe'
 $UrlDNIe = 'https://www.dnielectronico.es/descargas/CSP_para_Sistemas_Windows/Windows_64_bits/Instalador_Tarjetas_DNIe_x64.exe'
 $Programas = @(
  @{Nombre='Mozilla Firefox';Id='Mozilla.Firefox';Patron='Mozilla Firefox'},
  @{Nombre='Google Chrome';Id='Google.Chrome';Patron='Google Chrome'},
- @{Nombre='Brave';Id='Brave.Brave';Patron='Brave'},
+ @{Nombre='Brave';Id='Brave.Brave';Patron='^Brave( Browser)?$'},
  @{Nombre='K-Lite Codec Pack';Id='CodecGuide.K-LiteCodecPack.Standard';Patron='K-Lite Codec Pack'},
  @{Nombre='VLC';Id='VideoLAN.VLC';Patron='VLC media player'},
  @{Nombre='WinRAR';Id='RARLab.WinRAR';Patron='WinRAR'},
- @{Nombre='Adobe Acrobat Reader';Id='Adobe.Acrobat.Reader.64-bit';Patron='Adobe Acrobat'},
+ @{Nombre='Adobe Acrobat Reader';Id='Adobe.Acrobat.Reader.64-bit';Patron='^Adobe Acrobat( Reader)?(?: DC)?(?: \(|$)'},
  @{Nombre='PDFgear';Id='PDFgear.PDFgear';Patron='PDFgear'}
 )
 $script:Resultados = [System.Collections.Generic.List[object]]::new()
 $script:ReinicioPendiente = $false
 $script:Inicio = Get-Date
-$script:LogDir = Join-Path $env:ProgramData 'InstalarTodo'
+$script:LogDir = if ($RunDir) { $RunDir } else { Join-Path (Join-Path $env:LOCALAPPDATA 'win4win\Registros') ([guid]::NewGuid().ToString('N')) }
 New-Item -ItemType Directory -Path $script:LogDir -Force | Out-Null
+$script:LogDir = (Resolve-Path -LiteralPath $script:LogDir).ProviderPath
 $script:Log = Join-Path $script:LogDir ('instalacion_{0:yyyyMMdd_HHmmss}.log' -f (Get-Date))
 $script:TranscriptActivo = $false
 try { Start-Transcript -Path $script:Log -ErrorAction Stop | Out-Null; $script:TranscriptActivo = $true } catch { Write-Warning "No se pudo iniciar transcript: $_" }
 function Registrar([string]$Nombre,[string]$Estado,[string]$Detalle='') {
  $script:Resultados.Add([pscustomobject]@{Programa=$Nombre;Estado=$Estado;Detalle=$Detalle})
+  $script:Resultados[$script:Resultados.Count - 1] | Export-Csv -LiteralPath (Join-Path $script:LogDir "estado.csv") -Append -NoTypeInformation -Encoding UTF8
  Write-Host ('[{0}] {1} {2}' -f $Estado,$Nombre,$Detalle)
 }
 function Es-Admin {
@@ -45,19 +47,43 @@ function Test-Instalado([string]$Patron) {
  'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*')
  return [bool](Get-ItemProperty $claves -ErrorAction SilentlyContinue | Where-Object { $_.DisplayName -match $Patron } | Select-Object -First 1)
 }
-function Esperar-Winget {
- $limite = if ($Silencioso) { (Get-Date).AddMinutes(20) } else { (Get-Date).AddSeconds(10) }
- do {
-  if (Get-Command winget.exe -ErrorAction SilentlyContinue) { return $true }
-  if ($Silencioso) {
-   try { Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe -ErrorAction SilentlyContinue } catch {}
-   Start-Sleep -Seconds 15
-  } else { Start-Sleep -Seconds 2 }
- } while ((Get-Date) -lt $limite)
- return $false
+function Test-Winget {
+ try {
+  if (-not (Get-Command winget.exe -ErrorAction SilentlyContinue)) { return $false }
+  $version = & winget.exe --version
+  if ($LASTEXITCODE -ne 0) { return $false }
+  Write-Host "WinGet: $version"
+  return $true
+ } catch {
+  Write-Warning "WinGet no disponible: $_"
+  return $false
+ }
 }
 function Invocar-Winget([string]$Nombre,[string]$Id,[string]$Patron) {
- if (Test-Instalado $Patron) { Registrar $Nombre 'OMITIDO' 'Ya instalado'; return }
+ if (-not $VerificarDescargas -and (Test-Instalado $Patron)) { Registrar $Nombre 'OMITIDO' 'Ya instalado'; return }
+ if (-not $wingetDisponible) {
+  if ($Id -eq 'Google.Chrome' -and -not $VerificarDescargas) { Instalar-ChromeMsi }
+  else { Registrar $Nombre 'FALLO' 'WinGet no disponible. Revisa App Installer.' }
+  return
+ }
+ if ($VerificarDescargas) {
+  $destino = Join-Path $script:LogDir ('descarga_' + [guid]::NewGuid().ToString('N'))
+  try {
+   New-Item -Path $destino -ItemType Directory | Out-Null
+   & winget.exe download --id $Id --exact --source winget --download-directory $destino --skip-dependencies --accept-package-agreements --accept-source-agreements --disable-interactivity
+   $codigo = $LASTEXITCODE
+   $archivo = Get-ChildItem -LiteralPath $destino -File | Where-Object Extension -NotIn @('.yaml','.yml','.txt') | Select-Object -First 1
+   if ($codigo -ne 0 -or -not $archivo) { throw "WinGet: $codigo" }
+   Registrar $Nombre 'OK' 'Descarga comprobada por WinGet'
+  } catch { Registrar $Nombre 'FALLO' "$_" }
+  finally {
+   $item = Get-Item -LiteralPath $destino -ErrorAction SilentlyContinue
+   if ($item -and $item.FullName -eq [IO.Path]::GetFullPath($destino) -and -not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+    Remove-Item -LiteralPath $item.FullName -Recurse -Force -ErrorAction SilentlyContinue
+   }
+  }
+  return
+ }
  $codigo = -1
  for ($i=1; $i -le 3; $i++) {
   try {
@@ -70,19 +96,33 @@ function Invocar-Winget([string]$Nombre,[string]$Id,[string]$Patron) {
   if ($i -lt 3) { Start-Sleep -Seconds (5 * $i) }
  }
  if ($codigo -eq 3010 -or $codigo -eq 1641) { $script:ReinicioPendiente = $true }
- if ($codigo -eq 0 -or $codigo -eq -1978335189 -or $codigo -eq 3010 -or $codigo -eq 1641 -or (Test-Instalado $Patron)) {
+ if (Test-Instalado $Patron) {
   Registrar $Nombre 'OK' "Winget: $codigo"
- } elseif ($Id -eq 'Google.Chrome' -and $codigo -eq -1978335215) {
+ } elseif ($Id -eq 'Google.Chrome') {
+  Write-Warning "Chrome: winget devolvio $codigo. Probando MSI oficial..."
   Instalar-ChromeMsi
- } else { Registrar $Nombre 'FALLO' "Winget: $codigo" }
+ } elseif ($codigo -in @(0,3010,1641)) { Registrar $Nombre 'AVISO' "No confirmado; Winget: $codigo" } else { Registrar $Nombre 'FALLO' "Winget: $codigo" }
 }
-function Descargar-Seguro([string]$Url,[string]$Nombre) {
- $ruta = Join-Path $env:TEMP ('InstalarTodo_' + [guid]::NewGuid().ToString('N') + '.exe')
+function Descargar-Seguro([uri]$Url,[string]$Nombre,[string]$Tipo = '.exe') {
+ $ruta = Join-Path $env:TEMP ('win4win_' + [guid]::NewGuid().ToString('N') + $Tipo)
  try {
-  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-  Invoke-WebRequest -Uri $Url -OutFile $ruta -UseBasicParsing -TimeoutSec 90 -MaximumRedirection 5
+  if ($Url.Scheme -ne 'https') { throw 'La descarga requiere HTTPS' }
+  $ProgressPreference = 'SilentlyContinue'
+  [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+  for ($intento = 1; $intento -le 3; $intento++) {
+   try {
+    Write-Host "Descarga: $Url (intento $intento)"
+    Invoke-WebRequest -Uri $Url -OutFile $ruta -UseBasicParsing -TimeoutSec 300 -MaximumRedirection 5
+    break
+   } catch {
+    $respuesta = $_.Exception.Response
+    if ($respuesta -and [int]$respuesta.StatusCode -notin @(408,429,500,502,503,504)) { throw }
+    if ($intento -eq 3) { throw }
+    Start-Sleep -Seconds (3 * $intento)
+   }
+  }
   if ((Get-Item $ruta).Length -lt 10240) { throw 'Descarga demasiado pequena' }
-  $firma = Get-AuthenticodeSignature -FilePath $ruta
+  $firma = Get-AuthenticodeSignature -LiteralPath $ruta
   if ($firma.Status -ne 'Valid') { throw "Firma digital no valida: $($firma.Status)" }
   Write-Host "Firma verificada para $Nombre : $($firma.SignerCertificate.Subject)"
   return $ruta
@@ -93,18 +133,19 @@ function Descargar-Seguro([string]$Url,[string]$Nombre) {
  }
 }
 function Instalar-Exe([string]$Nombre,[string]$Url,[string]$Patron,[string]$Argumentos) {
- if (Test-Instalado $Patron) { Registrar $Nombre 'OMITIDO' 'Ya instalado'; return }
+ if (-not $VerificarDescargas -and (Test-Instalado $Patron)) { Registrar $Nombre 'OMITIDO' 'Ya instalado'; return }
  $ruta = Descargar-Seguro $Url $Nombre
  if (-not $ruta) { return }
+ if ($VerificarDescargas) {
+  Remove-Item -LiteralPath $ruta -Force
+  Registrar $Nombre 'OK' 'Descarga completa con firma válida'
+  return
+ }
  try {
-  $proc = Start-Process -FilePath $ruta -ArgumentList $Argumentos -PassThru
-  if (-not $proc.WaitForExit(180000)) {
-   Registrar $Nombre 'FALLO' 'Tiempo agotado; no se fuerza el cierre del instalador'
-   return
-  }
-  $codigo = $proc.ExitCode
+  $proc = Start-Process -FilePath $ruta -ArgumentList $Argumentos -Wait -PassThru
+  try { $codigo = $proc.ExitCode } finally { $proc.Dispose() }
   if ($codigo -in @(3010,1641)) { $script:ReinicioPendiente = $true }
-  if (Test-Instalado $Patron) { Registrar $Nombre 'OK' "Instalado (codigo $codigo)" }
+  if ($codigo -in @(0,3010,1641) -and (Test-Instalado $Patron)) { Registrar $Nombre 'OK' "Instalado (codigo $codigo)" }
   elseif ($codigo -in @(0,3010,1641)) { Registrar $Nombre 'AVISO' "Instalador finalizo ($codigo), pero no aparece en el registro; comprobar manualmente" }
   else { Registrar $Nombre 'FALLO' "Codigo $codigo" }
  } catch { Registrar $Nombre 'FALLO' "$_" }
@@ -112,14 +153,19 @@ function Instalar-Exe([string]$Nombre,[string]$Url,[string]$Patron,[string]$Argu
 }
 function Instalar-ChromeMsi {
  $url = 'https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi'
- $ruta = Join-Path $env:TEMP ('Chrome_' + [guid]::NewGuid().ToString('N') + '.msi')
+ $ruta = Descargar-Seguro $url 'Google Chrome (MSI)' '.msi'
+ if (-not $ruta) { return }
+ if ($VerificarDescargas) {
+  Remove-Item -LiteralPath $ruta -Force
+  Registrar 'Google Chrome (MSI)' 'OK' 'Descarga completa con firma válida'
+  return
+ }
  try {
-  Invoke-WebRequest -Uri $url -OutFile $ruta -UseBasicParsing -TimeoutSec 90
-  if ((Get-AuthenticodeSignature $ruta).Status -ne 'Valid') { throw 'Firma MSI no valida' }
-  $p = Start-Process msiexec.exe -ArgumentList "/i `"$ruta`" /qn /norestart" -Wait -PassThru
-  if ($p.ExitCode -in @(3010,1641)) { $script:ReinicioPendiente = $true }
-  if ($p.ExitCode -in @(0,3010,1641) -and (Test-Instalado 'Google Chrome')) { Registrar 'Google Chrome' 'OK' 'MSI oficial firmado' }
-  else { Registrar 'Google Chrome' 'FALLO' "MSI codigo $($p.ExitCode)" }
+  $p = Start-Process (Join-Path $env:WINDIR 'System32\msiexec.exe') -ArgumentList "/i `"$ruta`" /qn /norestart" -Wait -PassThru
+  try { $codigo = $p.ExitCode } finally { $p.Dispose() }
+  if ($codigo -in @(3010,1641)) { $script:ReinicioPendiente = $true }
+  if ($codigo -in @(0,3010,1641) -and ((Test-Instalado 'Google Chrome') -or (Test-Path "${env:ProgramFiles}\Google\Chrome\Application\chrome.exe") -or (Test-Path "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe"))) { Registrar 'Google Chrome' 'OK' 'MSI oficial firmado' }
+  else { Registrar 'Google Chrome' 'FALLO' "MSI codigo $codigo" }
  } catch { Registrar 'Google Chrome' 'FALLO' "MSI: $_" }
  finally { Remove-Item $ruta -Force -ErrorAction SilentlyContinue }
 }
@@ -163,7 +209,7 @@ function Configurar-Firefox {
 }
 function Restaurar-Configuracion {
  $copia = Join-Path $PSScriptRoot 'copia_config'
- if (-not (Test-Path $copia -PathType Container)) { Registrar 'Restaurar configuracion' 'OMITIDO' 'No existe copia_config'; return }
+ if (-not $StartLimpio -and -not (Test-Path $copia -PathType Container)) { Registrar 'Restaurar configuracion' 'OMITIDO' 'No existe copia_config'; return }
  $origen = Join-Path $copia 'Escritorio'
  if (Test-Path $origen -PathType Container) {
   try {
@@ -194,13 +240,13 @@ function Restaurar-Configuracion {
  # Restauraciones antiguas de taskbar/start2.bin no son compatibles con todas las builds.
  # Se mantienen opcionales, sin reiniciar explorer ni forzar sobreescritura de perfiles.
  $tbOrigen = Join-Path $copia 'TaskBar'
- if (Test-Path $tbOrigen) {
+ if (Test-Path -LiteralPath $tbOrigen -PathType Container) {
   try {
    $tb = Join-Path $env:APPDATA 'Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar'
    New-Item $tb -ItemType Directory -Force | Out-Null
-   foreach ($item in Get-ChildItem $tbOrigen -Force) {
+   foreach ($item in Get-ChildItem -LiteralPath $tbOrigen -Force) {
     $dest = Join-Path $tb $item.Name
-    if (-not (Test-Path $dest)) { Copy-Item $item.FullName $dest -Recurse -ErrorAction Stop }
+    if (-not (Test-Path $dest)) { Copy-Item -LiteralPath $item.FullName -Destination $dest -Recurse -ErrorAction Stop }
    }
    Registrar 'Barra de tareas' 'AVISO' 'Accesos copiados; Windows puede no restaurar los anclados'
   } catch { Registrar 'Barra de tareas' 'FALLO' "$_" }
@@ -221,26 +267,59 @@ function Restaurar-Configuracion {
  }
 }
 try {
- if (-not (Es-Admin)) {
+ if (-not $VerificarDescargas -and -not (Es-Admin)) {
   if ($Silencioso) { throw 'El modo silencioso requiere ejecutar como administrador en una sesion de usuario (no SYSTEM).' }
   Write-Host 'Solicitando permisos de administrador...'
   $argsElevados = @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"' + $PSCommandPath + '"'))
   if ($LimpiarEscritorio) { $argsElevados += '-LimpiarEscritorio' }
   if ($StartLimpio) { $argsElevados += '-StartLimpio' }
-  Start-Process powershell.exe -Verb RunAs -ArgumentList $argsElevados -ErrorAction Stop
+  if ($RunDir) { $argsElevados += @('-RunDir', ('"' + $script:LogDir + '"')) }
+  Start-Process (Join-Path $PSHOME 'powershell.exe') -Verb RunAs -ArgumentList $argsElevados -ErrorAction Stop
   exit 0
  }
  if ([Security.Principal.WindowsIdentity]::GetCurrent().IsSystem) { throw 'No ejecutar como SYSTEM: la configuracion de navegadores/escritorio se aplicaria al perfil incorrecto.' }
- if (-not (Esperar-Winget)) { throw 'Winget no disponible. Instalar App Installer desde Microsoft Store y repetir.' }
+ $wingetDisponible = Test-Winget
  foreach ($p in $Programas) { Invocar-Winget $p.Nombre $p.Id $p.Patron }
  # DNIe primero, luego AutoFirma
  Instalar-Exe 'DNIe' $UrlDNIe 'DNIe|DNI electr|Tarjetas DNI' '/silent'
+ # El middleware DNIe puede no registrarse con ese nombre; avisar y no declarar exito sin prueba.
+ if (-not $VerificarDescargas -and -not (Test-Instalado 'DNIe|DNI electr|Tarjetas DNI')) { Write-Warning 'DNIe no confirmado. Revisar log, firma, codigo de salida y Panel de control > Programas.' }
  Invocar-Winget 'AutoFirma' 'SpanishGovernment.Autofirma' 'AutoFirma'
  Instalar-Exe 'aTube Catcher' $UrlATube 'aTube' '/S'
+ if ($VerificarDescargas) {
+  Instalar-ChromeMsi
+  $xpi = Join-Path $script:LogDir 'video-downloadhelper.xpi'
+  try {
+   $ProgressPreference = 'SilentlyContinue'
+   Invoke-WebRequest -Uri $ExtensionFirefox -UseBasicParsing -OutFile $xpi -TimeoutSec 60
+   Add-Type -AssemblyName System.IO.Compression.FileSystem
+   $archivo = [IO.Compression.ZipFile]::OpenRead($xpi)
+   try { if (-not $archivo.GetEntry('manifest.json')) { throw 'XPI sin manifiesto' } }
+   finally { $archivo.Dispose() }
+   Registrar 'Extensión Firefox' 'OK' 'XPI descargado y legible'
+  } catch { Registrar 'Extensión Firefox' 'FALLO' "$_" }
+  finally { Remove-Item -LiteralPath $xpi -Force -ErrorAction SilentlyContinue }
+  $crx = Join-Path $script:LogDir 'ublock-origin-lite.crx'
+  try {
+   $consulta = [uri]::EscapeDataString("id=$ExtensionChrome&uc")
+   $url = "https://clients2.google.com/service/update2/crx?response=redirect&prodversion=140.0.0.0&acceptformat=crx3&x=$consulta"
+   Invoke-WebRequest -Uri $url -UseBasicParsing -OutFile $crx -TimeoutSec 60
+   $archivo = [IO.File]::OpenRead($crx)
+   try {
+    $cabecera = New-Object byte[] 4
+    if ($archivo.Read($cabecera, 0, 4) -ne 4 -or [Text.Encoding]::ASCII.GetString($cabecera) -ne 'Cr24') {
+     throw 'La respuesta de Chrome Web Store no es un CRX.'
+    }
+   } finally { $archivo.Dispose() }
+   Registrar 'Extensión Chrome' 'OK' 'CRX descargado y legible'
+  } catch { Registrar 'Extensión Chrome' 'FALLO' "$_" }
+  finally { Remove-Item -LiteralPath $crx -Force -ErrorAction SilentlyContinue }
+ } else {
  Configurar-Chromium 'HKLM:\SOFTWARE\Policies\Google\Chrome' 'Chrome' $ExtensionChrome
  Configurar-Chromium 'HKLM:\SOFTWARE\Policies\BraveSoftware\Brave' 'Brave' $null
  Configurar-Firefox
  Restaurar-Configuracion
+ }
 } catch { Registrar 'Ejecucion general' 'FALLO' "$_" }
 finally {
  $segundos = [int]((Get-Date)-$script:Inicio).TotalSeconds
@@ -254,7 +333,13 @@ finally {
  Write-Host "CSV: $csv"
  Write-Host 'Reabre los navegadores para aplicar las politicas. El script NO se autoelimina.'
  if ($script:TranscriptActivo) { Stop-Transcript | Out-Null }
- if (-not $Silencioso -and [Environment]::UserInteractive) { Read-Host 'Pulsa Intro para salir' | Out-Null }
+ if (-not $Silencioso -and -not $VerificarDescargas -and [Environment]::UserInteractive) { Read-Host 'Pulsa Intro para salir' | Out-Null }
 }
 if (@($script:Resultados | Where-Object { $_.Estado -eq 'FALLO' }).Count -gt 0) { exit 1 }
+if (@($script:Resultados | Where-Object Estado -eq 'AVISO').Count) {
+ if ($script:ReinicioPendiente) { exit 4 }
+ exit 2
+}
+if ($script:ReinicioPendiente) { exit 3 }
 exit 0
+

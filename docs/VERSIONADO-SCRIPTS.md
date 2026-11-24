@@ -1,12 +1,58 @@
 # Versionado de scripts
 
-Este documento registra las versiones publicadas del instalador y sus
+Este documento registra las versiones del instalador y sus
 características. Se utiliza **Versionado Semántico** (`MAYOR.MENOR.PARCHE`)
 según la convención definida en [VERSIONES.md](VERSIONES.md).
 
 - `0.MENOR.0`: nueva funcionalidad mientras el producto está en desarrollo.
 - `0.x.PARCHE`: corrección sin funcionalidad nueva.
 - `1.0.0`: primera versión estable y desplegada.
+
+## v0.2.0
+
+- **Estado:** implementación en desarrollo, pendiente de validación integral.
+- **Fase:** 1 — instalación de programas y configuración básica.
+- **Sistema previsto:** Windows 10 y 11 de 64 bits, con Windows PowerShell 5.1.
+
+| Archivo | Función |
+|---------|---------|
+| [`exec-main-v0.2.0.bat`](../scripts/exec-main-v0.2.0.bat) | Abre la interfaz en Windows PowerShell. |
+| [`exec-main-gui-v0.2.0.ps1`](../scripts/exec-main-gui-v0.2.0.ps1) | Solicita permisos de administrador, inicia el motor en segundo plano y muestra una barra de actividad y el resultado general. **Abrir registros** lleva a la carpeta de ejecución. |
+| [`exec-main-motor-v0.2.0.ps1`](../scripts/exec-main-motor-v0.2.0.ps1) | Comprueba los programas instalados, instala los que faltan y aplica la configuración de navegadores y del entorno. |
+
+### Cambios frente a v0.1.1
+
+- La interfaz gráfica y el motor se separan. La interfaz de esta revisión
+  muestra el estado general y una barra de actividad durante la ejecución.
+- Los registros se organizan por ejecución en
+  `%LOCALAPPDATA%\win4win\Registros`. Se guardan el registro de PowerShell
+  y los informes CSV. La interfaz captura además la salida y los errores.
+- El parámetro `-VerificarDescargas` del motor permite comprobar los paquetes
+  de WinGet, DNIe, aTube Catcher, el MSI de respaldo de Chrome y las extensiones
+  de Chrome y Firefox sin ejecutar los instaladores.
+- Las descargas directas comparten la comprobación de firma Authenticode y
+  los reintentos para fallos transitorios. El MSI oficial de Chrome sigue
+  disponible como respaldo.
+- Se conservan las políticas de Chrome, Brave y Firefox y la restauración
+  opcional desde `copia_config`, con respaldo del escritorio y copia sin
+  sobrescribir los elementos existentes.
+
+### Validación pendiente
+
+- El BAT apunta a la GUI versionada. La GUI todavía busca
+  `win4win_motor.ps1` en vez del nombre del motor presente en `scripts/`.
+  Esta referencia impide completar la instalación desde la ventana tal
+  como están los archivos.
+- Queda por validar la descarga y la instalación de extremo a extremo en
+  Windows. Esta revisión de la GUI carece de tarea activa y porcentaje numérico.
+
+## v0.1.1
+
+Parche del instalador por consola. Añadió comprobación de firma Authenticode
+para EXE y MSI descargados, eliminó la automatización de clics en los
+asistentes y protegió la restauración del escritorio con un respaldo previo
+y copia sin sobrescritura. Los registros y el resumen CSV se guardaban en
+`%ProgramData%\InstalarTodo`.
 
 ## v0.1.0
 
@@ -87,7 +133,6 @@ según la convención definida en [VERSIONES.md](VERSIONES.md).
 
 | Versión | Cambios previstos |
 |---------|-------------------|
-| `v0.2.0` | Configuración ampliada de navegadores y del entorno. |
 | `v0.3.0` | Actualización de programas, optimización, limpieza y gestión del arranque. |
 | `v0.4.0` | Instalación desatendida de Windows 11 mediante USB/ISO. |
 | `v0.5.0` | Selección de programas y ajustes desde la web. |

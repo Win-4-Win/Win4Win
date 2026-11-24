@@ -2,6 +2,10 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-24 — Documentación del instalador v0.2.0
+- Se actualizan la [hoja de ruta](VERSIONES.md) y el [versionado del instalador](VERSIONADO-SCRIPTS.md#v020) a partir del código de la v0.2.0.
+- Se recogen la interfaz gráfica, el motor separado, los registros por ejecución y la comprobación de descargas. Se documenta la referencia pendiente al motor y la validación integral.
+
 ## 2026-11-17 — Registro de la primera versión del script
 - Se crea [VERSIONADO-SCRIPTS.md](VERSIONADO-SCRIPTS.md) para registrar las
   características del instalador siguiendo SemVer.
