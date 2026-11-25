@@ -48,7 +48,7 @@ Las fases se reparten en sprints; el contenido de cada sprint se decide en su pl
 - [docs/NOMBRES.md](docs/NOMBRES.md): propuestas de nombre del proyecto.
 - [docs/CATALOGO.md](docs/CATALOGO.md): programas del catálogo. [docs/SCRIPTS.md](docs/SCRIPTS.md): descripción y estado de los scripts; actualizar al cambiarlos.
 - [docs/GIT.md](docs/GIT.md): flujo de trabajo con Git (ramas, commits, Pull Requests). Actualizar si cambia el flujo.
-- No subir datos personales ni binarios al repositorio (ver deuda técnica en SCRIPTS.md).
+- No subir datos personales ni binarios de programas al repositorio (ver deuda técnica en SCRIPTS.md). Excepción acordada: `scripts/download/Win4Win.zip`, paquete de distribución con los scripts y su README, sin datos personales ni ejecutables auxiliares.
 - No borrar historial; si algo cambia, añadir una nueva entrada que lo explique.
 - Documentación en **español**.
 
@@ -57,6 +57,7 @@ Las fases se reparten en sprints; el contenido de cada sprint se decide en su pl
 - **Preguntar si hace falta:** ante dudas, requisitos ambiguos o decisiones que afecten al diseño, el agente debe preguntar al usuario antes de asumir.
 - **Colaboración con IA:** este es un proyecto de FP desarrollado por estudiantes. Explica y propone soluciones con un nivel adecuado para el equipo, en español por defecto, de forma breve y clara; define los términos técnicos necesarios sin dar por hecho experiencia profesional. Antes de empezar a crear, pregunta si hay dudas o si detectas una mejora sencilla que pueda cambiar el alcance o el resultado; no interrumpas con preguntas cuando la petición ya sea clara y no haya una mejora relevante que decidir.
 - **Skills del proyecto** (en `.github/skills/`): `registrar-hito`, `script-powershell-instalador`, `anadir-programa-catalogo`, `planificar-sprint`. Úsalas cuando apliquen.
+- **Guía web para agentes:** antes de tareas no triviales de HTML, CSS o JavaScript del navegador, todos los agentes deben seguir la skill [Modern Web Guidance](.agents/skills/modern-web-guidance/SKILL.md): buscar y recuperar las guías pertinentes y comprobar el resultado. No aplica a backend, infraestructura ni cambios triviales; ver el alcance completo en la skill. Actualízala con `npx modern-web-guidance@latest update` y revisa los cambios.
 - **Operaciones de Git:** antes de ejecutar cualquier operación que cambie el repositorio, el índice, el historial o el remoto, pide permiso explícito al usuario. Esto incluye `git add`, `commit`, `push`, `pull`, `merge`, `rebase`, cambiar de rama, `cherry-pick`, `stash` y operaciones equivalentes. Una petición de editar o implementar cambios no autoriza estas operaciones. Las consultas de solo lectura, como `status`, `diff` y `log`, sí están permitidas.
 
 - Idioma: documentación y comentarios en español; identificadores de código en inglés.
