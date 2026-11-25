@@ -2,6 +2,12 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-25 — Guía web compartida para agentes
+
+- Se instala la skill oficial [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) para agentes compatibles con `.agents/skills/` y para Junie en `.junie/skills/`; `skills-lock.json` registra la revisión instalada.
+- Se establece su consulta antes de cambios no triviales de HTML, CSS o JavaScript del navegador y se añade la referencia en [AGENTS.md](../AGENTS.md) y en las instrucciones front-end de GitHub Copilot.
+- Se registra la decisión 19. La actualización se realiza con el CLI oficial y revisando los cambios.
+
 ## 2026-11-25 — Paquete ZIP fijo para la descarga web
 
 - La sección Descargas de `index.html` enlaza a `scripts/download/Win4Win.zip`, con un nombre estable que no requiere cambiar el enlace al actualizar el paquete.
