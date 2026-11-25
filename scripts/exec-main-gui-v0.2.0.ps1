@@ -3,7 +3,7 @@ Add-Type -AssemblyName System.Windows.Forms,System.Drawing
 [Windows.Forms.Application]::EnableVisualStyles()
 $ErrorActionPreference = 'Stop'
 $root = Join-Path $env:LOCALAPPDATA 'win4win\Registros'
-$worker = Join-Path $PSScriptRoot 'win4win_motor.ps1'
+$worker = Join-Path $PSScriptRoot 'exec-main-motor.ps1'
 $powershell = Join-Path $PSHOME 'powershell.exe'
 
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
