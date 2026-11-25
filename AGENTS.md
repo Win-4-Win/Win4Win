@@ -48,7 +48,7 @@ Las fases se reparten en sprints; el contenido de cada sprint se decide en su pl
 - [docs/NOMBRES.md](docs/NOMBRES.md): propuestas de nombre del proyecto.
 - [docs/CATALOGO.md](docs/CATALOGO.md): programas del catálogo. [docs/SCRIPTS.md](docs/SCRIPTS.md): descripción y estado de los scripts; actualizar al cambiarlos.
 - [docs/GIT.md](docs/GIT.md): flujo de trabajo con Git (ramas, commits, Pull Requests). Actualizar si cambia el flujo.
-- No subir datos personales ni binarios al repositorio (ver deuda técnica en SCRIPTS.md).
+- No subir datos personales ni binarios de programas al repositorio (ver deuda técnica en SCRIPTS.md). Excepción acordada: `scripts/download/Win4Win.zip`, paquete de distribución con los scripts y su README, sin datos personales ni ejecutables auxiliares.
 - No borrar historial; si algo cambia, añadir una nueva entrada que lo explique.
 - Documentación en **español**.
 

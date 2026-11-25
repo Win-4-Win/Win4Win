@@ -19,6 +19,7 @@ Las decisiones se agrupan por su estado general. Los números se mantienen como 
 | 15 | Versionado y alcance de la v0.1.0 | Cerrada | SemVer en `0.x`; v0.1.0 = web estática + descargable `.ps1`/`.bat` que instala el catálogo sobre Windows 11 ya instalado (sin Rufus/ISO). Ver [VERSIONES.md](VERSIONES.md). |
 | 16 | Qué se versiona de `script/` | Cerrada | Se suben al repositorio solo los `.ps1` y `.bat` (código revisable). Quedan fuera, vía `.gitignore`, `copia_config/` (datos personales) y binarios como `dnie.exe` (se descargarán de la fuente oficial con comprobación de hash). Complementa la decisión 4. |
 | 17 | Hypervisor para pruebas | Cerrada | **Oracle VirtualBox**. El equipo tiene experiencia previa con VirtualBox; ofrece mejor compatibilidad si alguien usa Windows Home y no interfiere con otras herramientas (Docker, WSL2). |
+| 18 | Paquete de descarga web | Cerrada | La web ofrece un único ZIP estable en `scripts/download/Win4Win.zip`. Se reemplaza su contenido al actualizar la versión, sin cambiar el enlace. Es una excepción a la exclusión de binarios: debe contener solo los scripts distribuibles y su README, nunca datos personales ni binarios auxiliares. Ver [SCRIPTS.md](SCRIPTS.md). |
 
 ## Decisiones abiertas y propuestas
 

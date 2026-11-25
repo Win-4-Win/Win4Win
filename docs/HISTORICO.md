@@ -2,6 +2,13 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-25 — Paquete ZIP fijo para la descarga web
+
+- La sección Descargas de `index.html` enlaza a `scripts/download/Win4Win.zip`, con un nombre estable que no requiere cambiar el enlace al actualizar el paquete.
+- Se registra la decisión 18: el ZIP es una excepción permitida a la exclusión de binarios del repositorio; no debe incluir datos personales ni binarios auxiliares.
+- Se corrige en `scripts/README.md` el nombre del lanzador y se reconstruye el ZIP con los tres archivos previstos.
+- Se documenta el contenido y el proceso de reemplazo del paquete en [SCRIPTS.md](SCRIPTS.md), y se aclara la excepción en [AGENTS.md](../AGENTS.md).
+
 ## 2026-11-17 — Web estática con estética retro terminal
 
 - Se crea la carpeta `src/` con la primera versión de la web estática: `index.html`, `styles.css` y `app.js`.
