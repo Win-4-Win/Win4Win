@@ -16,7 +16,7 @@
     --color-green-glow-strong: rgba(0, 255, 65, 0.3);
     --color-text: #00ff41;
     --color-text-dim: #00cc33;
-    --color-text-muted: #00801f;
+    --color-text-muted: #00cc33;
     --color-white: #e0e0e0;
     --color-red: #ff3333;
     --color-yellow: #ffcc00;
@@ -505,7 +505,7 @@ body {
 
 .card-action {
     font-size: var(--font-size-sm);
-    color: var(--color-green-dark);
+    color: var(--color-text-muted);
     transition: color var(--transition-fast);
 }
 
@@ -733,25 +733,7 @@ body {
 
 .modal-description {
     color: var(--color-text-dim);
-    margin-bottom: var(--spacing-xl);
     text-align: center;
-}
-
-.modal-body h3 {
-    font-size: var(--font-size-base);
-    color: var(--color-green);
-    margin-bottom: var(--spacing-md);
-    margin-top: var(--spacing-xl);
-}
-
-.modal-body h3:first-child {
-    margin-top: 0;
-}
-
-.modal-links {
-    display: flex;
-    gap: var(--spacing-md);
-    justify-content: center;
 }
 
 /* ---------- Efecto scanline (CRT) ---------- */
@@ -819,11 +801,6 @@ body::after {
 
     .download-links {
         flex-direction: column;
-    }
-
-    .modal-links {
-        flex-direction: column;
-        align-items: center;
     }
 }
 

@@ -2,6 +2,12 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-25 — Mejoras de accesibilidad en la web
+
+- Se retiran los enlaces ficticios de CV y redes de los perfiles hasta disponer de destinos reales.
+- Se mejora el contraste de textos secundarios y acciones de las tarjetas; el fondo de la página queda inerte mientras se muestra el diálogo.
+- El nombre accesible del menú móvil cambia entre «Abrir menú» y «Cerrar menú» para coincidir con `aria-expanded`.
+
 ## 2026-11-25 — Guía web compartida para agentes
 
 - Se instala la skill oficial [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) para agentes compatibles con `.agents/skills/` y para Junie en `.junie/skills/`; `skills-lock.json` registra la revisión instalada.

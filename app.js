@@ -9,28 +9,19 @@ const teamMembers = {
         name: 'Edu',
         role: 'Desarrollador',
         initial: 'E',
-        description: 'Apasionado por el desarrollo web y la automatización de sistemas. Se encarga de la estructura del proyecto y la integración de las diferentes herramientas. Le gusta encontrar soluciones eficientes y mantener el código limpio.',
-        cv: '#',
-        github: '#',
-        linkedin: '#'
+        description: 'Apasionado por el desarrollo web y la automatización de sistemas. Se encarga de la estructura del proyecto y la integración de las diferentes herramientas. Le gusta encontrar soluciones eficientes y mantener el código limpio.'
     },
     raul: {
         name: 'Raúl',
         role: 'Desarrollador',
         initial: 'R',
-        description: 'Enfoque en scripting, administración de sistemas y buenas prácticas de desarrollo. Responsable de los scripts PowerShell y la automatización de la instalación. Detallista y orientado a la calidad.',
-        cv: '#',
-        github: '#',
-        linkedin: '#'
+        description: 'Enfoque en scripting, administración de sistemas y buenas prácticas de desarrollo. Responsable de los scripts PowerShell y la automatización de la instalación. Detallista y orientado a la calidad.'
     },
     jose: {
         name: 'José',
         role: 'Desarrollador',
         initial: 'J',
-        description: 'Interesado en la integración de herramientas y la experiencia de usuario. Se ocupa de la interfaz web y la usabilidad del proyecto. Busca que la herramienta sea intuitiva y accesible para todos.',
-        cv: '#',
-        github: '#',
-        linkedin: '#'
+        description: 'Interesado en la integración de herramientas y la experiencia de usuario. Se ocupa de la interfaz web y la usabilidad del proyecto. Busca que la herramienta sea intuitiva y accesible para todos.'
     }
 };
 
@@ -48,16 +39,24 @@ const teamCards = document.querySelectorAll('.team-card');
 /* ---------- Menú hamburguesa ---------- */
 
 if (menuToggle && mainNav) {
-    menuToggle.addEventListener('click', () => {
-        const isOpen = mainNav.classList.toggle('is-open');
+    function setMenuOpen(isOpen) {
+        mainNav.classList.toggle('is-open', isOpen);
         menuToggle.setAttribute('aria-expanded', String(isOpen));
+
+        const menuLabel = menuToggle.querySelector('.sr-only');
+        if (menuLabel) {
+            menuLabel.textContent = isOpen ? 'Cerrar menú' : 'Abrir menú';
+        }
+    }
+
+    menuToggle.addEventListener('click', () => {
+        setMenuOpen(!mainNav.classList.contains('is-open'));
     });
 
     // Cerrar menú al hacer clic en un enlace
     mainNav.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
-            mainNav.classList.remove('is-open');
-            menuToggle.setAttribute('aria-expanded', 'false');
+            setMenuOpen(false);
         });
     });
 }
@@ -82,6 +81,14 @@ faqToggles.forEach(toggle => {
 
 let lastFocusedElement = null;
 
+function setPageInert(isInert) {
+    Array.from(document.body.children).forEach(element => {
+        if (element !== modal) {
+            element.inert = isInert;
+        }
+    });
+}
+
 function openModal(memberKey) {
     const member = teamMembers[memberKey];
     if (!member) return;
@@ -94,15 +101,8 @@ function openModal(memberKey) {
     modal.querySelector('.modal-description').textContent = member.description;
     modalAvatarLetter.textContent = member.initial;
 
-    // Enlaces
-    const cvLink = modal.querySelector('.modal-body .btn-download');
-    cvLink.href = member.cv;
-
-    const links = modal.querySelectorAll('.modal-links a');
-    if (links[0]) links[0].href = member.github;
-    if (links[1]) links[1].href = member.linkedin;
-
     // Mostrar modal
+    setPageInert(true);
     modal.hidden = false;
 
     // Trap focus dentro del modal
@@ -116,6 +116,7 @@ function openModal(memberKey) {
 
 function closeModal() {
     modal.hidden = true;
+    setPageInert(false);
     document.body.style.overflow = '';
 
     // Restaurar foco
