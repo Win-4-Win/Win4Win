@@ -5,6 +5,7 @@ applyTo: "**/*.{html,css,js}"
 
 # Buenas prácticas de front-end
 
+- Para cambios no triviales de HTML, CSS o JavaScript del navegador, sigue primero la skill compartida [Modern Web Guidance](../../.agents/skills/modern-web-guidance/SKILL.md): busca y recupera las guías pertinentes y contrasta con ellas la implementación.
 - Nombra variables, funciones, clases, atributos `id`, clases CSS, propiedades personalizadas y demás identificadores en inglés; usa nombres breves, descriptivos y coherentes con el contexto.
 - Prefiere código autodocumentado; evita abreviaturas crípticas y comentarios que repitan literalmente el código.
 - Usa comentarios solo para explicar decisiones no obvias, contexto, limitaciones o comprobaciones necesarias. Los comentarios del código serán siempre en español.
