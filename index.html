@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Win4Win - Automatiza la instalación y configuración de Windows 11 con scripts predefinidos.">
+    <title>Win4Win - Automatiza tu Windows 11</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <!-- Skip link para accesibilidad -->
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-prompt">&gt;</span>
+                <span class="logo-text">Win4Win</span>
+                <span class="logo-cursor" aria-hidden="true">_</span>
+            </div>
+            <nav aria-label="Navegación principal">
+                <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="hamburger-line" aria-hidden="true"></span>
+                    <span class="sr-only">Abrir menú</span>
+                </button>
+                <ul id="main-nav" class="main-nav">
+                    <li><a href="#script">Script</a></li>
+                    <li><a href="#team">Equipo</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero section -->
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="container">
+                <h1 id="hero-heading">
+                    <span class="prompt" aria-hidden="true">C:\&gt;</span> Win4Win<span class="cursor" aria-hidden="true">_</span>
+                </h1>
+                <p class="hero-subtitle">Automatiza la instalación y configuración de Windows 11.</p>
+                <p class="hero-description">
+                    Scripts predefinidos y versionados para dejar tu equipo listo en minutos.
+                    Sin complicaciones, sin configuración manual.
+                </p>
+                <a href="#script" class="btn btn-primary">Descargar script</a>
+            </div>
+        </section>
+
+        <!-- Script section -->
+        <section id="script" class="section script-section" aria-labelledby="script-heading">
+            <div class="container">
+                <h2 id="script-heading">
+                    <span class="section-prompt" aria-hidden="true">[</span>
+                    Última versión del script
+                    <span class="section-prompt" aria-hidden="true">]</span>
+                </h2>
+                <div class="terminal-window">
+                    <div class="terminal-header" role="presentation">
+                        <span class="terminal-dot terminal-red" aria-hidden="true"></span>
+                        <span class="terminal-dot terminal-yellow" aria-hidden="true"></span>
+                        <span class="terminal-dot terminal-green" aria-hidden="true"></span>
+                        <span class="terminal-title">exec-main-v0.1.1.ps1</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="terminal-content">
+                            <p><strong>Win4Win v0.1.1</strong> — Script de instalación y configuración.</p>
+                            <p>Instala los programas del catálogo con <code>winget</code>, configura navegadores y personaliza el entorno de escritorio.</p>
+
+                            <h3>Instrucciones de uso</h3>
+                            <ol>
+                                <li>Descarga <code>Win4Win.zip</code> desde el botón de descargas.</li>
+                                <li>Extrae el ZIP en una carpeta local.</li>
+                                <li>Consulta el <code>README.md</code> incluido para ver las instrucciones y opciones de ejecución.</li>
+                                <li>Para iniciar la instalación, ejecuta <code>exec-main-v0.1.1.bat</code> y acepta la solicitud de permisos de administrador.</li>
+                            </ol>
+
+                            <h3>Programas incluidos</h3>
+                            <ul>
+                                <li>Navegadores: Firefox, Chrome, Brave</li>
+                                <li>Multimedia: VLC, K-Lite Codec Pack, aTube Catcher</li>
+                                <li>Utilidades: WinRAR, Adobe Acrobat Reader, PDFgear</li>
+                                <li>Seguridad: AutoFirma</li>
+                            </ul>
+
+                            <h3>Requisitos</h3>
+                            <ul>
+                                <li>Windows 11</li>
+                                <li><code>winget</code> instalado (incluido por defecto en Windows 11)</li>
+                                <li>Privilegios de administrador</li>
+                                <li>Conexión a internet</li>
+                            </ul>
+
+                            <h3>Descargas</h3>
+                            <div class="download-links">
+                                <a href="scripts/download/Win4Win.zip" class="btn btn-download" download>
+                                    <span aria-hidden="true">⬇</span> Descargar Win4Win.zip
+                                </a>
+                            </div>
+
+                            <div class="warning-box" role="alert">
+                                <strong>⚠ Aviso:</strong> Revisa el contenido del script antes de ejecutarlo. El script requiere privilegios de administrador.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team section -->
+        <section id="team" class="section team-section" aria-labelledby="team-heading">
+            <div class="container">
+                <h2 id="team-heading">
+                    <span class="section-prompt" aria-hidden="true">[</span>
+                    Quiénes somos
+                    <span class="section-prompt" aria-hidden="true">]</span>
+                </h2>
+                <p class="section-intro">
+                    Win4Win es el proyecto final del ciclo formativo de <strong>Desarrollo de Aplicaciones Web (DAW)</strong>.
+                    Lo desarrollamos tres alumnos con el objetivo de crear una herramienta útil y funcional que automatice
+                    la puesta a punto de equipos con Windows 11.
+                </p>
+
+                <div class="team-grid">
+                    <!-- Edu card -->
+                    <article class="team-card" tabindex="0" role="button" aria-haspopup="dialog"
+                             data-member="edu">
+                        <div class="card-avatar" aria-hidden="true">
+                            <span class="avatar-initials">E</span>
+                        </div>
+                        <h3 class="card-name">Edu</h3>
+                        <p class="card-role">Desarrollador</p>
+                        <p class="card-bio">Apasionado por el desarrollo web y la automatización de sistemas.</p>
+                        <span class="card-action" aria-hidden="true">[ ver perfil ]</span>
+                    </article>
+
+                    <!-- Raúl card -->
+                    <article class="team-card" tabindex="0" role="button" aria-haspopup="dialog"
+                             data-member="raul">
+                        <div class="card-avatar" aria-hidden="true">
+                            <span class="avatar-initials">R</span>
+                        </div>
+                        <h3 class="card-name">Raúl</h3>
+                        <p class="card-role">Desarrollador</p>
+                        <p class="card-bio">Enfoque en scripting, administración de sistemas y buenas prácticas de desarrollo.</p>
+                        <span class="card-action" aria-hidden="true">[ ver perfil ]</span>
+                    </article>
+
+                    <!-- José card -->
+                    <article class="team-card" tabindex="0" role="button" aria-haspopup="dialog"
+                             data-member="jose">
+                        <div class="card-avatar" aria-hidden="true">
+                            <span class="avatar-initials">J</span>
+                        </div>
+                        <h3 class="card-name">José</h3>
+                        <p class="card-role">Desarrollador</p>
+                        <p class="card-bio">Interesado en la integración de herramientas y la experiencia de usuario.</p>
+                        <span class="card-action" aria-hidden="true">[ ver perfil ]</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ section -->
+        <section id="faq" class="section faq-section" aria-labelledby="faq-heading">
+            <div class="container">
+                <h2 id="faq-heading">
+                    <span class="section-prompt" aria-hidden="true">[</span>
+                    Preguntas frecuentes
+                    <span class="section-prompt" aria-hidden="true">]</span>
+                </h2>
+
+                <div class="faq-list" role="list">
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-1">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Qué hace exactamente el script de Win4Win?
+                            </button>
+                        </h3>
+                        <div id="faq-1" class="faq-answer" role="region" hidden>
+                            <p>El script automatiza la instalación de programas mediante <code>winget</code>, configura los navegadores web (página de inicio, extensiones) y personaliza el entorno de escritorio (barra de tareas, menú Inicio, iconos). Todo se ejecuta de forma silenciosa y registra un log de la instalación.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-2">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Es seguro ejecutar el script?
+                            </button>
+                        </h3>
+                        <div id="faq-2" class="faq-answer" role="region" hidden>
+                            <p>El código es abierto y puedes revisarlo antes de ejecutarlo. Descarga software únicamente desde fuentes oficiales (Microsoft Store, web de los editores) mediante <code>winget</code>. No contiene activadores, cracks ni software no licenciado. Recomendamos leer el script y verificar los hashes de los descargables.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-3">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Puedo elegir qué programas se instalan?
+                            </button>
+                        </h3>
+                        <div id="faq-3" class="faq-answer" role="region" hidden>
+                            <p>En la versión actual (v0.1.1), el script instala un catálogo fijo de programas. Puedes editar la lista <code>$programas</code> al inicio del <code>.ps1</code> para personalizarlo. En futuras versiones, la web permitirá elegir los programas directamente sin editar el script.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-4">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Necesito ser administrador para ejecutarlo?
+                            </button>
+                        </h3>
+                        <div id="faq-4" class="faq-answer" role="region" hidden>
+                            <p>Sí. El script requiere privilegios de administrador para instalar programas y modificar la configuración del sistema. Si no tienes permisos, el script intentará auto-elevarte; si no puedes, no se ejecutará.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-5">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Funciona en Windows 10?
+                            </button>
+                        </h3>
+                        <div id="faq-5" class="faq-answer" role="region" hidden>
+                            <p>El script está diseñado y probado para Windows 11. Aunque <code>winget</code> existe en Windows 10, algunas configuraciones de personalización pueden no funcionar correctamente. No garantizamos el funcionamiento en versiones anteriores.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-6">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Qué pasa si ya tengo algunos programas instalados?
+                            </button>
+                        </h3>
+                        <div id="faq-6" class="faq-answer" role="region" hidden>
+                            <p><code>winget</code> detecta automáticamente los programas ya instalados y los salta. El script es idempotente: puedes ejecutarlo varias veces sin efectos secundarios. Solo se instalarán los programas que falten.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-7">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿El script instala Windows desde cero?
+                            </button>
+                        </h3>
+                        <div id="faq-7" class="faq-answer" role="region" hidden>
+                            <p>No. La versión actual asume que ya tienes Windows 11 instalado. La instalación desatendida de Windows (con ISO o USB) está planificada para una versión futura (v0.4.0).</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-8">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Dónde puedo ver el código fuente?
+                            </button>
+                        </h3>
+                        <div id="faq-8" class="faq-answer" role="region" hidden>
+                            <p>Todo el código está disponible en nuestro repositorio de GitHub: <a href="https://github.com/Win-4-Win" target="_blank" rel="noopener noreferrer">Win-4-Win en GitHub</a>. Puedes revisar los scripts, reportar problemas y contribuir al proyecto.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-9">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Qué es <code>winget</code>?
+                            </button>
+                        </h3>
+                        <div id="faq-9" class="faq-answer" role="region" hidden>
+                            <p><code>winget</code> es el gestor de paquetes oficial de Microsoft para Windows. Permite instalar, actualizar y eliminar programas desde la línea de comandos de forma automatizada. Viene incluido en Windows 11 y se descarga desde la Microsoft Store.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item" role="listitem">
+                        <h3 class="faq-question">
+                            <button class="faq-toggle" aria-expanded="false" aria-controls="faq-10">
+                                <span class="faq-icon" aria-hidden="true">+</span>
+                                ¿Puedo reportar un error o sugerir una mejora?
+                            </button>
+                        </h3>
+                        <div id="faq-10" class="faq-answer" role="region" hidden>
+                            <p>¡Por supuesto! Abre un <em>issue</em> en nuestro repositorio de GitHub o contacta con el equipo directamente. Valoramos cualquier feedback que ayude a mejorar el proyecto.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p class="footer-text">
+                <span class="prompt" aria-hidden="true">&gt;</span> Win4Win &copy; 2026 — Proyecto DAW
+            </p>
+            <p class="footer-links">
+                <a href="https://github.com/Win-4-Win" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Modal overlay -->
+    <div id="member-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-name" hidden>
+        <div class="modal-content" role="document">
+            <button class="modal-close" aria-label="Cerrar perfil">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-header">
+                <div class="modal-avatar" aria-hidden="true">
+                    <span class="avatar-initials" id="modal-avatar-letter"></span>
+                </div>
+                <h2 id="modal-name" class="modal-name"></h2>
+                <p class="modal-role"></p>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description"></p>
+
+                <h3>Descargar CV</h3>
+                <a href="#" class="btn btn-download" download>
+                    <span aria-hidden="true">⬇</span> Descargar CV
+                </a>
+
+                <h3>Redes</h3>
+                <div class="modal-links">
+                    <a href="#" class="btn btn-link" target="_blank" rel="noopener noreferrer">
+                        <span aria-hidden="true">⌘</span> GitHub
+                    </a>
+                    <a href="#" class="btn btn-link" target="_blank" rel="noopener noreferrer">
+                        <span aria-hidden="true">in</span> LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

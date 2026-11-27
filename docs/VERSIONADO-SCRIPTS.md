@@ -56,9 +56,9 @@ y copia sin sobrescritura. Los registros y el resumen CSV se guardaban en
 
 ## v0.1.0
 
-**Estado:** primera versión funcional del prototipo  
-**Fase:** 1 — instalación de programas y configuración básica  
-**Sistema previsto:** Windows 11 ya instalado  
+**Estado:** primera versión funcional del prototipo
+**Fase:** 1 — instalación de programas y configuración básica
+**Sistema previsto:** Windows 11 ya instalado
 **Archivos:**
 
 - [`scripts/script-mian-v0.1.0.ps1`](../scripts/script-mian-v0.1.0.ps1): script

@@ -5,6 +5,12 @@ Carpeta: [`script/`](../script). Prototipo funcional en PowerShell con envoltori
 El historial de versiones y las características de cada entrega se mantienen
 en [VERSIONADO-SCRIPTS.md](VERSIONADO-SCRIPTS.md).
 
+## Paquete de descarga
+
+La sección Descargas de la web ofrece [`scripts/download/Win4Win.zip`](../scripts/download/Win4Win.zip), que contiene el `README.md` y los scripts `.ps1` y `.bat` de la versión distribuida. El nombre del archivo se mantiene para que el enlace de la web no cambie.
+
+Al actualizar los scripts, sustituye el ZIP por el paquete de la nueva versión y conserva el nombre `Win4Win.zip`. Antes de publicarlo, comprueba su contenido: no debe incluir `copia_config`, datos personales ni binarios auxiliares. Este ZIP es una excepción acordada a la norma general de no subir binarios al repositorio.
+
 ## Archivos
 
 | Archivo | Función |

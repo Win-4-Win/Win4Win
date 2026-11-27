@@ -11,7 +11,7 @@ Las decisiones se agrupan por su estado general. Los números se mantienen como 
 | 3 | Stack web | Cerrada (v1) | Solo front: HTML, CSS y JS vanilla, sin backend ni BBDD en la v1. Framework (React, Astro, Angular) y backend se reevaluarán después. |
 | 6 | Nombre del proyecto | Cerrada | **Win4Win**. Pendiente de comprobar disponibilidad de dominio y marca. Ver [NOMBRES.md](NOMBRES.md). |
 | 7 | Alcance "instalar Windows" | Cerrada (por fases) | Base: Windows + suite básica. Final: usuario elige solo programas, o Windows + programas. |
-| 9 | Flujo Git | Cerrada | GitHub, ramas por funcionalidad, Pull Requests con revisión y tests. Detalle (nombres de ramas, CI) por definir. |
+| 9 | Flujo Git | Cerrada | GitHub, ramas por funcionalidad y Pull Requests con revisión y tests. Flujo `feat/… → dev → main`: `main` protegida (solo PR), `dev` sin push directo, prefijos `feat/`, `fix/`, `doc/`, `chore/`, `refactor/`, `test/` y `perf/`. Detalle en [GIT.md](GIT.md). CI por definir. |
 | 11 | Suite básica de programas | Cerrada (v1) | Ver [CATALOGO.md](CATALOGO.md). |
 | 12 | Licencias de Windows/Office | Cerrada | Windows 11 sin activar (o Enterprise Evaluation en VM para demos) y LibreOffice en lugar de Office. Sin activadores de terceros. |
 | 13 | Gestor de proyectos | Cerrada | GitHub Projects, con tablero tipo kanban. |
@@ -19,6 +19,8 @@ Las decisiones se agrupan por su estado general. Los números se mantienen como 
 | 15 | Versionado y alcance de la v0.1.0 | Cerrada | SemVer en `0.x`; v0.1.0 = web estática + descargable `.ps1`/`.bat` que instala el catálogo sobre Windows 11 ya instalado (sin Rufus/ISO). Ver [VERSIONES.md](VERSIONES.md). |
 | 16 | Qué se versiona de `script/` | Cerrada | Se suben al repositorio solo los `.ps1` y `.bat` (código revisable). Quedan fuera, vía `.gitignore`, `copia_config/` (datos personales) y binarios como `dnie.exe` (se descargarán de la fuente oficial con comprobación de hash). Complementa la decisión 4. |
 | 17 | Hypervisor para pruebas | Cerrada | **Oracle VirtualBox**. El equipo tiene experiencia previa con VirtualBox; ofrece mejor compatibilidad si alguien usa Windows Home y no interfiere con otras herramientas (Docker, WSL2). |
+| 18 | Paquete de descarga web | Cerrada | La web ofrece un único ZIP estable en `scripts/download/Win4Win.zip`. Se reemplaza su contenido al actualizar la versión, sin cambiar el enlace. Es una excepción a la exclusión de binarios: debe contener solo los scripts distribuibles y su README, nunca datos personales ni binarios auxiliares. Ver [SCRIPTS.md](SCRIPTS.md). |
+| 19 | Guía web para agentes | Cerrada | Se instala [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) como skill compartida en `.agents/skills/` y para Junie en `.junie/skills/`. Todos los agentes la consultan antes de cambios no triviales de HTML, CSS o JavaScript del navegador. Se actualiza con el CLI oficial y se revisan los cambios. |
 
 ## Decisiones abiertas y propuestas
 
