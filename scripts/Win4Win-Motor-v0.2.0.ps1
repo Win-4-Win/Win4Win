@@ -1,7 +1,7 @@
 ﻿#requires -Version 5.1
 <#
  win4win para Windows 10/11
- Uso: .\win4win_motor.ps1 [-Silencioso] [-LimpiarEscritorio] [-StartLimpio]
+ Uso: .\Win4Win-Motor-v0.2.0.ps1 [-Silencioso] [-LimpiarEscritorio] [-StartLimpio]
  IMPORTANTE: ejecutar en la sesion del usuario final (no SYSTEM).
  Los EXE externos solo se ejecutan si tienen firma Authenticode valida.
 #>
@@ -266,6 +266,35 @@ function Restaurar-Configuracion {
   } catch { Registrar 'Inicio limpio' 'FALLO' "$_" }
  }
 }
+$script:PasosCompletados = 0
+$pasosTotales = $Programas.Count + 8
+$archivoProgreso = Join-Path $script:LogDir 'progreso.json'
+
+function Publicar-Progreso([string]$Tarea) {
+ if (-not $RunDir -or $VerificarDescargas) { return }
+ $temporal = "$archivoProgreso.tmp"
+ try {
+  $estado = @{
+   Tarea = $Tarea
+   Porcentaje = [int][Math]::Floor(100 * $script:PasosCompletados / $pasosTotales)
+  }
+  [IO.File]::WriteAllText($temporal, ($estado | ConvertTo-Json -Compress))
+  if ([IO.File]::Exists($archivoProgreso)) {
+   [IO.File]::Replace($temporal, $archivoProgreso, [System.Management.Automation.Language.NullString]::Value)
+  } else {
+   [IO.File]::Move($temporal, $archivoProgreso)
+  }
+ } catch {
+  Write-Warning "No se pudo actualizar el progreso: $_"
+ }
+}
+
+function Ejecutar-Paso([string]$Tarea, [scriptblock]$Accion) {
+ Publicar-Progreso $Tarea
+ & $Accion
+ $script:PasosCompletados++
+}
+
 try {
  if (-not $VerificarDescargas -and -not (Es-Admin)) {
   if ($Silencioso) { throw 'El modo silencioso requiere ejecutar como administrador en una sesion de usuario (no SYSTEM).' }
@@ -278,14 +307,16 @@ try {
   exit 0
  }
  if ([Security.Principal.WindowsIdentity]::GetCurrent().IsSystem) { throw 'No ejecutar como SYSTEM: la configuracion de navegadores/escritorio se aplicaria al perfil incorrecto.' }
+ Publicar-Progreso 'Preparando la instalación'
  $wingetDisponible = Test-Winget
- foreach ($p in $Programas) { Invocar-Winget $p.Nombre $p.Id $p.Patron }
+ $script:PasosCompletados++
+ foreach ($p in $Programas) { Ejecutar-Paso "Instalar $($p.Nombre)" { Invocar-Winget $p.Nombre $p.Id $p.Patron } }
  # DNIe primero, luego AutoFirma
- Instalar-Exe 'DNIe' $UrlDNIe 'DNIe|DNI electr|Tarjetas DNI' '/silent'
+ Ejecutar-Paso 'Instalar DNIe' { Instalar-Exe 'DNIe' $UrlDNIe 'DNIe|DNI electr|Tarjetas DNI' '/silent' }
  # El middleware DNIe puede no registrarse con ese nombre; avisar y no declarar exito sin prueba.
  if (-not $VerificarDescargas -and -not (Test-Instalado 'DNIe|DNI electr|Tarjetas DNI')) { Write-Warning 'DNIe no confirmado. Revisar log, firma, codigo de salida y Panel de control > Programas.' }
- Invocar-Winget 'AutoFirma' 'SpanishGovernment.Autofirma' 'AutoFirma'
- Instalar-Exe 'aTube Catcher' $UrlATube 'aTube' '/S'
+ Ejecutar-Paso 'Instalar AutoFirma' { Invocar-Winget 'AutoFirma' 'SpanishGovernment.Autofirma' 'AutoFirma' }
+ Ejecutar-Paso 'Instalar aTube Catcher' { Instalar-Exe 'aTube Catcher' $UrlATube 'aTube' '/S' }
  if ($VerificarDescargas) {
   Instalar-ChromeMsi
   $xpi = Join-Path $script:LogDir 'video-downloadhelper.xpi'
@@ -315,10 +346,11 @@ try {
   } catch { Registrar 'Extensión Chrome' 'FALLO' "$_" }
   finally { Remove-Item -LiteralPath $crx -Force -ErrorAction SilentlyContinue }
  } else {
- Configurar-Chromium 'HKLM:\SOFTWARE\Policies\Google\Chrome' 'Chrome' $ExtensionChrome
- Configurar-Chromium 'HKLM:\SOFTWARE\Policies\BraveSoftware\Brave' 'Brave' $null
- Configurar-Firefox
- Restaurar-Configuracion
+  Ejecutar-Paso 'Configurar Chrome' { Configurar-Chromium 'HKLM:\SOFTWARE\Policies\Google\Chrome' 'Chrome' $ExtensionChrome }
+  Ejecutar-Paso 'Configurar Brave' { Configurar-Chromium 'HKLM:\SOFTWARE\Policies\BraveSoftware\Brave' 'Brave' $null }
+  Ejecutar-Paso 'Configurar Firefox' { Configurar-Firefox }
+  Ejecutar-Paso 'Restaurar configuración' { Restaurar-Configuracion }
+  Publicar-Progreso 'Guardando los registros'
  }
 } catch { Registrar 'Ejecucion general' 'FALLO' "$_" }
 finally {
@@ -342,4 +374,6 @@ if (@($script:Resultados | Where-Object Estado -eq 'AVISO').Count) {
 }
 if ($script:ReinicioPendiente) { exit 3 }
 exit 0
+
+
 

@@ -2,6 +2,11 @@
 
 Bitácora de hitos y decisiones. Entradas nuevas arriba.
 
+## 2026-11-27 — Documentación del instalador
+
+- Se documentan los cambios de las versiones v0.2.0, v0.1.1 y v0.1.0 en [SCRIPT-CHANGELOG.md](SCRIPT-CHANGELOG.md).
+- Se documentan el catálogo, el flujo, la interfaz y los pasos de uso de la revisión actual, contrastados con los scripts y el ZIP local. [SCRIPT.md](SCRIPT.md)
+
 ## 2026-11-25 — Guía web compartida para agentes
 
 - Se instala la skill oficial [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) para agentes compatibles con `.agents/skills/` y para Junie en `.junie/skills/`; `skills-lock.json` registra la revisión instalada.

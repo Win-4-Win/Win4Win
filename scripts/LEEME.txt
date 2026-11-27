@@ -12,7 +12,7 @@ Cada ejecución incluye un informe CSV y un registro de PowerShell.
 Desde la interfaz se guardan también la salida y los errores del motor.
 
 Para comprobar las descargas desde CMD, sin instalar aplicaciones:
-    win4win_consola.bat -VerificarDescargas
+    Win4Win.bat -VerificarDescargas
 
 Se necesita acceso a Internet y una versión reciente de App Installer
 (WinGet). La comprobación prueba los paquetes WinGet, el MSI de respaldo

@@ -3,7 +3,7 @@ Add-Type -AssemblyName System.Windows.Forms,System.Drawing
 [Windows.Forms.Application]::EnableVisualStyles()
 $ErrorActionPreference = 'Stop'
 $root = Join-Path $env:LOCALAPPDATA 'win4win\Registros'
-$worker = Join-Path $PSScriptRoot 'exec-main-motor-v0.2.0.ps1'
+$worker = Join-Path $PSScriptRoot 'Win4Win-Motor-v0.2.0.ps1'
 $powershell = Join-Path $PSHOME 'powershell.exe'
 
 $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -20,7 +20,7 @@ if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administra
 
 $form = New-Object Windows.Forms.Form
 $form.Text = 'win4win'
-$form.ClientSize = New-Object Drawing.Size(540, 250)
+$form.ClientSize = New-Object Drawing.Size(540, 288)
 $form.StartPosition = 'CenterScreen'
 $form.FormBorderStyle = 'FixedDialog'
 $form.MaximizeBox = $false
@@ -41,15 +41,20 @@ function New-Label($caption, $top, $height, $size) {
 function New-Button($caption, $left, $width) {
     $control = New-Object Windows.Forms.Button
     $control.Text = $caption
-    $control.SetBounds($left, 180, $width, 46)
+    $control.SetBounds($left, 216, $width, 46)
     $form.Controls.Add($control)
     return $control
 }
 
 $title = New-Label 'win4win' 20 56 30
 $status = New-Label 'Listo para instalar y configurar las aplicaciones.' 89 44 12
+$tarea = New-Label '' 133 28 11
+$tarea.Width = 400
+$porcentaje = New-Label '0 %' 133 28 11
+$porcentaje.SetBounds(432, 133, 80, 28)
+$porcentaje.TextAlign = 'TopRight'
 $bar = New-Object Windows.Forms.ProgressBar
-$bar.SetBounds(28, 142, 484, 9)
+$bar.SetBounds(28, 172, 484, 12)
 $bar.AccessibleName = 'Progreso de la instalación'
 $form.Controls.Add($bar)
 $start = New-Button 'Iniciar instalación' 28 230
@@ -73,7 +78,8 @@ $start.Add_Click({
         $script:process = Start-Process -FilePath $powershell -ArgumentList $argsWorker -WindowStyle Hidden -PassThru -RedirectStandardOutput (Join-Path $script:run 'salida.txt') -RedirectStandardError (Join-Path $script:run 'errores.txt')
         $start.Enabled = $false
         $bar.Value = 0
-        $bar.Style = 'Marquee'
+        $porcentaje.Text = '0 %'
+        $tarea.Text = 'Preparando la instalación'
         $status.Text = 'Instalación en curso…'
         $timer.Start()
     } catch {
@@ -85,13 +91,30 @@ $start.Add_Click({
 })
 
 $timer.Add_Tick({
+    $rutaProgreso = Join-Path $script:run 'progreso.json'
+    try {
+        if ([IO.File]::Exists($rutaProgreso)) {
+            $estado = [IO.File]::ReadAllText($rutaProgreso) | ConvertFrom-Json
+            $valor = [int]$estado.Porcentaje
+            if ($valor -ge $bar.Value -and $valor -le 100) {
+                $bar.Value = $valor
+                $porcentaje.Text = "$valor %"
+                $tarea.Text = $estado.Tarea
+            }
+        }
+    } catch {
+        # El motor puede estar actualizando el archivo. Reintentar en el siguiente tick.
+    }
     if (-not $script:process.HasExited) { return }
     $timer.Stop()
     $code = $script:process.ExitCode
     $script:process.Dispose()
     $script:process = $null
-    $bar.Style = 'Continuous'
-    $bar.Value = 100
+    if ($code -in @(0, 2, 3, 4)) {
+        $bar.Value = 100
+        $porcentaje.Text = '100 %'
+    }
+    $tarea.Text = ''
     $status.Text = switch ($code) {
         0 { 'Instalación completada.' }
         2 { 'Instalación completada con avisos. Consulta los registros.' }
@@ -127,5 +150,7 @@ try {
     if ($script:process) { $script:process.Dispose() }
     $form.Dispose()
 }
+
+
 
 

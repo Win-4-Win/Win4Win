@@ -1,24 +1,14 @@
-# Versionado de scripts
-
-Este documento registra las versiones del instalador y sus
-características. Se utiliza **Versionado Semántico** (`MAYOR.MENOR.PARCHE`)
-según la convención definida en [VERSIONES.md](VERSIONES.md).
-
-- `0.MENOR.0`: nueva funcionalidad mientras el producto está en desarrollo.
-- `0.x.PARCHE`: corrección sin funcionalidad nueva.
-- `1.0.0`: primera versión estable y desplegada.
-
 ## v0.2.0
 
 - **Estado:** implementación en desarrollo, pendiente de validación integral.
 - **Fase:** 1 — instalación de programas y configuración básica.
 - **Sistema previsto:** Windows 10 y 11 de 64 bits, con Windows PowerShell 5.1.
 
-| Archivo | Función |
-|---------|---------|
-| [`exec-main-v0.2.0.bat`](../scripts/exec-main-v0.2.0.bat) | Abre la interfaz en Windows PowerShell. |
-| [`exec-main-gui-v0.2.0.ps1`](../scripts/exec-main-gui-v0.2.0.ps1) | Solicita permisos de administrador, inicia el motor en segundo plano y muestra una barra de actividad y el resultado general. **Abrir registros** lleva a la carpeta de ejecución. |
-| [`exec-main-motor-v0.2.0.ps1`](../scripts/exec-main-motor-v0.2.0.ps1) | Comprueba los programas instalados, instala los que faltan y aplica la configuración de navegadores y del entorno. |
+| Archivo                                                               | Función                                                                                                                                                                            |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`exec-main-v0.2.0.bat`](../scripts/exec-main-v0.2.0.bat)             | Abre la interfaz en Windows PowerShell.                                                                                                                                            |
+| [`exec-main-gui-v0.2.0.ps1`](../scripts/exec-main-gui-v0.2.0.ps1)     | Solicita permisos de administrador, inicia el motor en segundo plano y muestra una barra de actividad y el resultado general. **Abrir registros** lleva a la carpeta de ejecución. |
+| [`exec-main-motor-v0.2.0.ps1`](../scripts/exec-main-motor-v0.2.0.ps1) | Comprueba los programas instalados, instala los que faltan y aplica la configuración de navegadores y del entorno.                                                                 |
 
 ### Cambios frente a v0.1.1
 
@@ -131,9 +121,19 @@ y copia sin sobrescritura. Los registros y el resumen CSV se guardaban en
 
 ## Próximas versiones
 
-| Versión | Cambios previstos |
-|---------|-------------------|
+| Versión  | Cambios previstos                                                          |
+| -------- | -------------------------------------------------------------------------- |
 | `v0.3.0` | Actualización de programas, optimización, limpieza y gestión del arranque. |
-| `v0.4.0` | Instalación desatendida de Windows 11 mediante USB/ISO. |
-| `v0.5.0` | Selección de programas y ajustes desde la web. |
-| `v1.0.0` | Versión estable y desplegada. |
+| `v0.4.0` | Instalación desatendida de Windows 11 mediante USB/ISO.                    |
+| `v0.5.0` | Selección de programas y ajustes desde la web.                             |
+| `v1.0.0` | Versión estable y desplegada.                                              |
+
+# Versionado de scripts
+
+Este documento registra las versiones del instalador y sus
+características. Se utiliza **Versionado Semántico** (`MAYOR.MENOR.PARCHE`)
+según la convención definida en [VERSIONES.md](VERSIONES.md).
+
+- `0.MENOR.0`: nueva funcionalidad mientras el producto está en desarrollo.
+- `0.x.PARCHE`: corrección sin funcionalidad nueva.
+- `1.0.0`: primera versión estable y desplegada.
